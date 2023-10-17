@@ -1,0 +1,6 @@
+Points Related To Coel Web Database
+
+ - domesday entry number generation with tick
+    - when you create new entry, domesday tick details appeared to be empty, where the entryno field is empty and directly related to entries
+    - when you select reference, and click on add new entry now domesday tick details are showing previous entry number
+    - domesday tick directly connected with entryNo if i am creating a new Entry why it is aligned with the selected Entry of previous selection of reference

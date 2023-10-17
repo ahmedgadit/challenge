@@ -1,0 +1,12 @@
+vendor
+.env
+public/js/*
+public/css/app.css
+vendor/*
+storage/*
+node_modules/*
+vendor/*
+public/storage
+public/mix-manifest.json
+sftp.json
+.htaccess

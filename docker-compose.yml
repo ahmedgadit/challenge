@@ -1,0 +1,87 @@
+version: '3'
+services:
+
+  #PHP Service
+  apptest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: apptest
+    restart: unless-stopped
+    tty: false
+    environment:
+      SERVICE_NAME: apptest
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - test-app-network
+
+  #Nginx Service
+  testwebserver:
+    image: nginx:alpine
+    container_name: test
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8004:80"
+      - "448:443"
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - test-app-network
+
+  #MySQL Service
+  dbtest:
+    image: mysql:5.7.22
+    container_name: dbtest
+    restart: unless-stopped
+    tty: false
+    ports:
+      - "3309:3306"
+    environment:
+      MYSQL_DATABASE: test_db
+      MYSQL_ROOT_PASSWORD: root
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - dbdata:/var/lib/mysql/
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - test-app-network
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin-test
+    restart: always
+    networks:
+      - test-app-network
+    depends_on:
+      - dbtest
+    environment:
+      PMA_HOST: dbtest
+      PMA_USER: root
+      PMA_PASSWORD: root
+      UPLOAD_LIMIT: 500M
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    ports:
+      - "2703:80"
+  mailhogtest:
+    container_name: mailhogtest
+    networks:
+      - test-app-network
+    image: mailhog/mailhog
+    ports:
+      - 1026:1026 # smtp server
+      - 8026:8026 # web ui
+#Docker Networks
+networks:
+  test-app-network:
+    driver: bridge
+#Volumes
+volumes:
+  dbdata:
+    driver: local

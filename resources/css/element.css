@@ -1,0 +1,260 @@
+/* --=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+/* Vue Multiselect classes -------------------------------------------- */
+/* --=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+
+.multiselect--active:not(.multiselect--above) .multiselect__input{
+    @apply pl-1;
+    margin-bottom:11px;
+}
+.multiselect--disabled {
+    @apply cursor-not-allowed;
+    background: transparent;
+    & .multiselect__select {
+    background: transparent;
+    }
+}
+
+.btn-link{
+    @apply border-b border-gray-700 border-primary duration-150 font-semibold leading-5 pb-0 py-1 text-primary text-xs transition-colors uppercase;
+}
+
+.multiselect{
+
+    &__option{
+        &--selected {
+            @apply bg-primary-300 text-primary-800;
+            &::after {
+                @apply text-primary-800;
+            }
+
+            &.multiselect__option--highlight {
+                @apply bg-red-100 text-red-500;
+                &:after {
+                    @apply bg-red-100 text-red-500; /*ali 2*/
+                }
+            }
+
+    }
+        &--highlight {
+            @apply bg-primary-100 text-primary-600;
+            &:after {
+                @apply bg-primary-200 text-primary-700;
+
+            }
+        }
+    }
+    &__tag {
+        @apply bg-primary-100 border-transparent font-semibold items-center rounded-lg text-primary-600 text-sm pt-1;
+        &-icon {
+            @apply text-primary-600;
+        }
+        input::placeholder {
+            @apply text-sm text-gray-500; /*ali123*/
+
+        }
+    }
+    &__placeholder {
+        @apply text-sm text-gray-500  ml-1; padding-top: 0px;
+    }
+}
+
+
+
+
+/* Dark theme styling */
+.theme-dark{
+    .multiselect{
+        &__option{
+            &--highlight {
+                @apply bg-primary-600 text-primary-200; /*test this*/
+                &:after {
+                    @apply bg-primary-700 text-primary-300;
+                }
+            }
+            &--selected{
+                @apply bg-primary-600 text-primary-200;
+                &.multiselect__option--highlight:after {
+                    @apply bg-red-600 text-red-100;
+                }
+                &.multiselect__option--highlight {
+                    @apply bg-red-600 text-red-100;
+                }
+            }
+
+            }
+
+        &__tag {
+            @apply text-primary-100 bg-primary-700 border-gray-600 border-primary-700;
+            &-icon::after {
+                @apply text-primary-100;
+            }
+            input::placeholder {
+                @apply text-sm text-gray-300;
+
+            }
+        }
+        &__single {
+            @apply bg-transparent text-gray-300;
+        }
+        &__tags{
+            min-height:42px;
+            @apply border-gray-600;
+            @apply bg-gray-700;
+            @apply text-gray-300;
+            @apply shadow-dark;
+            @apply rounded-md;
+            & input {
+                @apply border-0;
+                @apply bg-gray-700;
+                @apply text-gray-300;
+            }
+        }
+        &__element {
+            @apply bg-gray-700;
+            @apply text-gray-300;
+            @apply shadow-dark;
+        }
+       &__content-wrapper{
+            @apply border-gray-600;
+        }
+    }
+
+}
+
+/* CSS for multiselect loader */
+.multiselect__spinner {
+    width: 40px;
+    overflow: hidden;
+    height: 100%;
+    right: 0px;
+    background: transparent;
+}
+
+.multiselect__spinner:after, .multiselect__spinner:before {
+    left: auto;
+    right: 11px;
+    width: 20px;
+    height: 20px;
+    top: 9px;
+    bottom: 0px;
+    margin: 0px;
+    position: absolute;
+}
+
+label.switch {
+    & input[type="checkbox"]{
+        display: none;
+        &:checked+span:before {
+            /* background-color: rgba(0, 127, 235, 0.5); */
+            @apply bg-primary-300;
+        }
+        &:checked+span:after {
+            @apply bg-primary-600;
+            /* background-color: #007feb; */
+            transform: translate(80%, -50%);
+        }
+        &+span {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            font-weight: 500;
+            text-align: left;
+            margin: 0px;
+            padding: 0px 23px;
+            min-height: 25px;
+            @apply mt-1;
+        }
+        &+span:before,
+        &+span:after {
+            content: '';
+            cursor: pointer;
+            position: absolute;
+            margin: 0;
+            outline: 0;
+            top: 50%;
+            transform: translate(0, -50%);
+            transition: all 200ms ease-out;
+        }
+        &+span:before {
+            left: 1px;
+            width: 44px;
+            height: 24px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+        }
+        &+span:after {
+            left: 5px;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .14), 0 2px 2px 0 rgba(0, 0, 0, .098), 0 1px 5px 0 rgba(0, 0, 0, .084);
+        }
+    }
+    &.info{
+        & input[type="checkbox"]{
+            &:checked+span:before {
+                @apply bg-blue-600;
+            }
+            &:checked+span:after {
+                @apply bg-blue-300;
+            }
+        }
+    }
+    &.danger{
+        & input[type="checkbox"]{
+            &:checked+span:before {
+                @apply bg-orange-600;
+            }
+            &:checked+span:after {
+                @apply bg-orange-300;
+            }
+        }
+    }
+}
+
+.theme-dark{
+    label.switch{
+        & input[type="checkbox"]:checked{
+            &+span label.switch input[type="checkbox"]:after {
+                transform: translate(80%, -50%);
+            }
+        }
+        & input[type="checkbox"]+span{
+            &:before {
+                @apply bg-gray-700;
+
+            }
+            &:after {
+                @apply bg-gray-400;
+            }
+        }
+        &.info input[type="checkbox"]:checked+span{
+            &:before {
+                @apply bg-blue-600;
+            }
+            &:after {
+                @apply bg-blue-300;
+            }
+        }
+        &.danger input[type="checkbox"]:checked+span{
+            &:before {
+                @apply bg-orange-600;
+            }
+            &:after {
+                @apply bg-orange-300;
+            }
+        }
+
+        & input[type="checkbox"]:checked+span:before {
+            @apply bg-primary-600;
+        }
+        & input[type="checkbox"]:checked+span:after {
+            @apply bg-primary-800;
+        }
+
+    }
+}
+
+
+
